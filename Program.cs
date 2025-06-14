@@ -6,10 +6,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Cow Cow = new();
-        Sheep Sheep = new();
-        IFieldPig FieldPig = new();
-        McDroidPig DroidPig = new();
-        
+        //Cow Cow = new();
+        //Sheep Sheep = new();
+        //IFieldPig FieldPig = new();
+        //McDroidPig DroidPig = new();       
     }
 }
