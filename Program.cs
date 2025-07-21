@@ -5,6 +5,8 @@ using McDroidPig = AdvancedPractice.McDroid.Pig;
 using AdvancedPractice.The_Sieve;
 using AdvancedPractice.CharberryTree;
 using System.Security.Cryptography.X509Certificates;
+using AdvancedPractice.PatternPotions;
+using AdvancedPractice.OperandCity;
 internal class Program
 {
     private static void Main(string[] args)
@@ -79,78 +81,47 @@ internal class Program
 
         //File.WriteAllText($"../../../UserScores/{UserName}.txt", UserScore.ToString());
 
-        bool ContinueConcoctingPotion = true;
-        Potion UserPotion = Potion.Water;
-        
-        while (ContinueConcoctingPotion)
-        {
-            Console.WriteLine($"The potion you currently have is {UserPotion}");
-            Console.WriteLine("The available ingredients are:");
-            Console.WriteLine("Stardust, SnakeVenom, DragonBreath, ShadowGlass, EyeshineGem");
-            Console.WriteLine("Choose an ingredient...");
+        //bool ContinueConcoctingPotion = true;
+        //Potion UserPotion = Potion.Water;
 
-            string? UserIngredientChoice = Console.ReadLine();
+        //while (ContinueConcoctingPotion)
+        //{
+        //    Console.WriteLine($"The potion you currently have is {UserPotion}");
+        //    Console.WriteLine("The available ingredients are:");
+        //    Console.WriteLine("Stardust, SnakeVenom, DragonBreath, ShadowGlass, EyeshineGem");
+        //    Console.WriteLine("Choose an ingredient...");
 
-            IngredientType Ingredient = UserIngredientChoice switch
-            {
-                "Stardust"     => IngredientType.Stardust,
-                "SnakeVenom"   => IngredientType.SnakeVenom,
-                "DragonBreath" => IngredientType.DragonBreath,
-                "ShadowGlass"  => IngredientType.ShadowGlass,
-                "EyeshineGem"  => IngredientType.EyeshineGem,
-                _              => IngredientType.AnythingElse
-            };
+        //    string? UserIngredientChoice = Console.ReadLine();
 
-            UserPotion = Program.DeterminePotion(UserPotion, Ingredient);
+        //    IngredientType Ingredient = UserIngredientChoice switch
+        //    {
+        //        "Stardust"     => IngredientType.Stardust,
+        //        "SnakeVenom"   => IngredientType.SnakeVenom,
+        //        "DragonBreath" => IngredientType.DragonBreath,
+        //        "ShadowGlass"  => IngredientType.ShadowGlass,
+        //        "EyeshineGem"  => IngredientType.EyeshineGem,
+        //        _              => IngredientType.AnythingElse
+        //    };
 
-            Console.WriteLine($"The potion you have concocted is a {UserPotion}!");
-            if (UserPotion == Potion.RuinedPotion)
-            {
-                Console.WriteLine("Starting again from scratch...");
-                UserPotion = Potion.Water;
-            }
+        //    UserPotion = PotionCreator.DeterminePotion(UserPotion, Ingredient);
 
-            Console.WriteLine("Do you want to continue concocting potions? yes/no");
-            if (Console.ReadLine() == "no") return;
-        }
-    }
+        //    Console.WriteLine($"The potion you have concocted is a {UserPotion}!");
+        //    if (UserPotion == Potion.RuinedPotion)
+        //    {
+        //        Console.WriteLine("Starting again from scratch...");
+        //        UserPotion = Potion.Water;
+        //    }
 
-    public static Potion DeterminePotion(Potion UserPotion, IngredientType Ingredient)
-    {
-        return (UserPotion, Ingredient) switch
-        {
-            (Potion.Water, IngredientType.Stardust)                  => Potion.Elixir,
-            (Potion.Elixir, IngredientType.SnakeVenom)               => Potion.PoisonPotion,
-            (Potion.Elixir, IngredientType.DragonBreath)             => Potion.FlyingPotion,
-            (Potion.Elixir, IngredientType.ShadowGlass)              => Potion.InvisibilityPotion,
-            (Potion.Elixir, IngredientType.EyeshineGem)              => Potion.NightSightPotion,
-            (Potion.NightSightPotion, IngredientType.ShadowGlass)    => Potion.CloudyBrew,
-            (Potion.InvisibilityPotion, IngredientType.EyeshineGem)  => Potion.CloudyBrew,
-            (Potion.CloudyBrew, IngredientType.Stardust)             => Potion.WraithPotion,
-            _                                                        => Potion.RuinedPotion
-        };
-    }
+        //    Console.WriteLine("Do you want to continue concocting potions? yes/no");
+        //    if (Console.ReadLine() == "no") return;
+        //}
 
-    public enum Potion
-    {
-        Water,
-        Elixir,
-        PoisonPotion,
-        FlyingPotion,
-        InvisibilityPotion,
-        NightSightPotion,
-        CloudyBrew,
-        WraithPotion,
-        RuinedPotion
-    }
+        BlockCoordinate BlockCoordinate = new(0, 0);
+        BlockOffset BlockOffset = new(2, 2);
+        Console.WriteLine(BlockCoordinate + BlockOffset);
 
-    public enum IngredientType
-    {
-        Stardust,
-        SnakeVenom,
-        DragonBreath,
-        ShadowGlass,
-        EyeshineGem,
-        AnythingElse
-    }
+        BlockCoordinate BlockCoordinate2 = new(0, 0);
+        Console.WriteLine(BlockCoordinate + Direction.East);
+
+    }  
 }
