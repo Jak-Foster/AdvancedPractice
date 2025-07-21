@@ -4,6 +4,7 @@ using IFieldPig = AdvancedPractice.IField.Pig;
 using McDroidPig = AdvancedPractice.McDroid.Pig;
 using AdvancedPractice.The_Sieve;
 using AdvancedPractice.CharberryTree;
+using System.Security.Cryptography.X509Certificates;
 internal class Program
 {
     private static void Main(string[] args)
@@ -63,19 +64,93 @@ internal class Program
         //    //    Console.WriteLine("Tree is ripe!");
         //}
 
-        Console.WriteLine("Please enter your name");
-        string? UserName = Console.ReadLine();
-        int UserScore = 0;
+        //Console.WriteLine("Please enter your name");
+        //string? UserName = Console.ReadLine();
+        //int UserScore = 0;
 
-        if (File.Exists($"../../../UserScores/{UserName}.txt")) UserScore = Convert.ToInt32(File.ReadAllText($"../../../UserScores/{UserName}.txt"));
+        //if (File.Exists($"../../../UserScores/{UserName}.txt")) UserScore = Convert.ToInt32(File.ReadAllText($"../../../UserScores/{UserName}.txt"));
+
+        //Console.WriteLine("You get one point for every key press you make. Press enter to end the game. Begin!");
+        //while (Console.ReadKey().Key != ConsoleKey.Enter)
+        //{
+        //    UserScore++;
+        //    Console.WriteLine("Score: " + UserScore);
+        //}
+
+        //File.WriteAllText($"../../../UserScores/{UserName}.txt", UserScore.ToString());
+
+        bool ContinueConcoctingPotion = true;
+        Potion UserPotion = Potion.Water;
         
-        Console.WriteLine("You get one point for every key press you make. Press enter to end the game. Begin!");
-        while (Console.ReadKey().Key != ConsoleKey.Enter)
+        while (ContinueConcoctingPotion)
         {
-            UserScore++;
-            Console.WriteLine("Score: " + UserScore);
-        }
+            Console.WriteLine($"The potion you currently have is {UserPotion}");
+            Console.WriteLine("The available ingredients are:");
+            Console.WriteLine("Stardust, SnakeVenom, DragonBreath, ShadowGlass, EyeshineGem");
+            Console.WriteLine("Choose an ingredient...");
 
-        File.WriteAllText($"../../../UserScores/{UserName}.txt", UserScore.ToString());
+            string? UserIngredientChoice = Console.ReadLine();
+
+            IngredientType Ingredient = UserIngredientChoice switch
+            {
+                "Stardust"     => IngredientType.Stardust,
+                "SnakeVenom"   => IngredientType.SnakeVenom,
+                "DragonBreath" => IngredientType.DragonBreath,
+                "ShadowGlass"  => IngredientType.ShadowGlass,
+                "EyeshineGem"  => IngredientType.EyeshineGem,
+                _              => IngredientType.AnythingElse
+            };
+
+            UserPotion = Program.DeterminePotion(UserPotion, Ingredient);
+
+            Console.WriteLine($"The potion you have concocted is a {UserPotion}!");
+            if (UserPotion == Potion.RuinedPotion)
+            {
+                Console.WriteLine("Starting again from scratch...");
+                UserPotion = Potion.Water;
+            }
+
+            Console.WriteLine("Do you want to continue concocting potions? yes/no");
+            if (Console.ReadLine() == "no") return;
+        }
+    }
+
+    public static Potion DeterminePotion(Potion UserPotion, IngredientType Ingredient)
+    {
+        return (UserPotion, Ingredient) switch
+        {
+            (Potion.Water, IngredientType.Stardust)                  => Potion.Elixir,
+            (Potion.Elixir, IngredientType.SnakeVenom)               => Potion.PoisonPotion,
+            (Potion.Elixir, IngredientType.DragonBreath)             => Potion.FlyingPotion,
+            (Potion.Elixir, IngredientType.ShadowGlass)              => Potion.InvisibilityPotion,
+            (Potion.Elixir, IngredientType.EyeshineGem)              => Potion.NightSightPotion,
+            (Potion.NightSightPotion, IngredientType.ShadowGlass)    => Potion.CloudyBrew,
+            (Potion.InvisibilityPotion, IngredientType.EyeshineGem)  => Potion.CloudyBrew,
+            (Potion.CloudyBrew, IngredientType.Stardust)             => Potion.WraithPotion,
+            _                                                        => Potion.RuinedPotion
+        };
+    }
+
+    public enum Potion
+    {
+        Water,
+        Elixir,
+        PoisonPotion,
+        FlyingPotion,
+        InvisibilityPotion,
+        NightSightPotion,
+        CloudyBrew,
+        WraithPotion,
+        RuinedPotion
+    }
+
+    public enum IngredientType
+    {
+        Stardust,
+        SnakeVenom,
+        DragonBreath,
+        ShadowGlass,
+        EyeshineGem,
+        AnythingElse
     }
 }
