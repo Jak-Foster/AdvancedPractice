@@ -126,5 +126,9 @@ internal class Program
         Console.WriteLine(BlockCoordinate[0]);
         Console.WriteLine(BlockCoordinate[1]);
 
+        Direction East = Direction.East;
+        BlockOffset EastOffset = East;
+        Console.WriteLine(EastOffset);
+
     }  
 }
