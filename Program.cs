@@ -123,5 +123,8 @@ internal class Program
         BlockCoordinate BlockCoordinate2 = new(0, 0);
         Console.WriteLine(BlockCoordinate + Direction.East);
 
+        Console.WriteLine(BlockCoordinate[0]);
+        Console.WriteLine(BlockCoordinate[1]);
+
     }  
 }

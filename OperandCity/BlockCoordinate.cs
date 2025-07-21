@@ -13,5 +13,13 @@ namespace AdvancedPractice.OperandCity
             if (Direction == Direction.North) return new(Location.Row - 1, Location.Column);
             return Location;
         }
+
+        public int this[int Index]
+        {
+            get {
+                if (Index == 0) return Row;
+                else return Column;
+            }
+        }
     }
 }
