@@ -52,15 +52,30 @@ internal class Program
         //    }
         //}
 
-        CharberryTree Tree = new();
-        Notifier Notifier = new(Tree);
-        Harvester Harvester = new(Tree);
+        //CharberryTree Tree = new();
+        //Notifier Notifier = new(Tree);
+        //Harvester Harvester = new(Tree);
 
-        while(true)
+        //while(true)
+        //{
+        //    Tree.MaybeGrow();
+        //    //if(Tree.Ripe)
+        //    //    Console.WriteLine("Tree is ripe!");
+        //}
+
+        Console.WriteLine("Please enter your name");
+        string? UserName = Console.ReadLine();
+        int UserScore = 0;
+
+        if (File.Exists($"../../../UserScores/{UserName}.txt")) UserScore = Convert.ToInt32(File.ReadAllText($"../../../UserScores/{UserName}.txt"));
+        
+        Console.WriteLine("You get one point for every key press you make. Press enter to end the game. Begin!");
+        while (Console.ReadKey().Key != ConsoleKey.Enter)
         {
-            Tree.MaybeGrow();
-            //if(Tree.Ripe)
-            //    Console.WriteLine("Tree is ripe!");
+            UserScore++;
+            Console.WriteLine("Score: " + UserScore);
         }
+
+        File.WriteAllText($"../../../UserScores/{UserName}.txt", UserScore.ToString());
     }
 }
