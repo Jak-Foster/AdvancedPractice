@@ -7,6 +7,7 @@ using AdvancedPractice.CharberryTree;
 using System.Security.Cryptography.X509Certificates;
 using AdvancedPractice.PatternPotions;
 using AdvancedPractice.OperandCity;
+using AdvancedPractice.TheThreeLenses;
 internal class Program
 {
     private static void Main(string[] args)
@@ -116,19 +117,39 @@ internal class Program
         //    if (Console.ReadLine() == "no") return;
         //}
 
-        BlockCoordinate BlockCoordinate = new(0, 0);
-        BlockOffset BlockOffset = new(2, 2);
-        Console.WriteLine(BlockCoordinate + BlockOffset);
+        //BlockCoordinate BlockCoordinate = new(0, 0);
+        //BlockOffset BlockOffset = new(2, 2);
+        //Console.WriteLine(BlockCoordinate + BlockOffset);
 
-        BlockCoordinate BlockCoordinate2 = new(0, 0);
-        Console.WriteLine(BlockCoordinate + Direction.East);
+        //BlockCoordinate BlockCoordinate2 = new(0, 0);
+        //Console.WriteLine(BlockCoordinate + Direction.East);
 
-        Console.WriteLine(BlockCoordinate[0]);
-        Console.WriteLine(BlockCoordinate[1]);
+        //Console.WriteLine(BlockCoordinate[0]);
+        //Console.WriteLine(BlockCoordinate[1]);
 
-        Direction East = Direction.East;
-        BlockOffset EastOffset = East;
-        Console.WriteLine(EastOffset);
+        //Direction East = Direction.East;
+        //BlockOffset EastOffset = East;
+        //Console.WriteLine(EastOffset);
+
+        int[] IntArray = [1, 9, 2, 8, 3, 7, 4, 6, 5];
+
+        List<int> Result1 = ArrayOrganiser.OrderArray1(IntArray);
+        foreach (int I in Result1)
+        {
+            Console.WriteLine(I);
+        }
+
+        IEnumerable<int> Result2 = ArrayOrganiser.OrderArray2(IntArray);
+        foreach (int I in Result2)
+        {
+            Console.WriteLine(I);
+        }
+
+        IEnumerable<int> Result3 = ArrayOrganiser.OrderArray2(IntArray);
+        foreach (int I in Result3)
+        {
+            Console.WriteLine(I);
+        }
 
     }  
 }
