@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using AdvancedPractice.PatternPotions;
 using AdvancedPractice.OperandCity;
 using AdvancedPractice.TheThreeLenses;
+using AdvancedPractice.The_Repeating_Stream;
 internal class Program
 {
     private static void Main(string[] args)
@@ -131,25 +132,87 @@ internal class Program
         //BlockOffset EastOffset = East;
         //Console.WriteLine(EastOffset);
 
-        int[] IntArray = [1, 9, 2, 8, 3, 7, 4, 6, 5];
+        //int[] IntArray = [1, 9, 2, 8, 3, 7, 4, 6, 5];
 
-        List<int> Result1 = ArrayOrganiser.OrderArray1(IntArray);
-        foreach (int I in Result1)
+        //List<int> Result1 = ArrayOrganiser.OrderArray1(IntArray);
+        //foreach (int I in Result1)
+        //{
+        //    Console.WriteLine(I);
+        //}
+
+        //IEnumerable<int> Result2 = ArrayOrganiser.OrderArray2(IntArray);
+        //foreach (int I in Result2)
+        //{
+        //    Console.WriteLine(I);
+        //}
+
+        //IEnumerable<int> Result3 = ArrayOrganiser.OrderArray2(IntArray);
+        //foreach (int I in Result3)
+        //{
+        //    Console.WriteLine(I);
+        //}
+
+        //Thread Thread1 = new Thread(CountTo100);
+        //Thread1.Start();
+        //Thread Thread2 = new Thread(CountTo100);
+        //Thread2.Start();
+
+        //Thread1.Join();
+        //Thread2.Join();
+
+        //Console.WriteLine("Main Thread Done");
+
+        //void CountTo100()
+        //{
+        //    for (int i = 0; i < 100; i++)
+        //    {
+        //        Console.WriteLine(i + 1);
+        //    }
+        //}
+
+        RecentNumbers RecentNumbers = new();
+
+        Thread Thread1 = new Thread(RecentNumbers.Generate);
+        Thread1.Start();
+
+        while (true)
         {
-            Console.WriteLine(I);
+            Console.ReadKey(false);
+            if (RecentNumbers.AreNumbersEqual()) Console.WriteLine("You correctly identified a repeated number");
+            else Console.WriteLine("The last two numbers are not the same");
         }
 
-        IEnumerable<int> Result2 = ArrayOrganiser.OrderArray2(IntArray);
-        foreach (int I in Result2)
+        
+    }
+
+    public class RecentNumbers
+    {
+        private readonly object _lock = new();
+        public int MostRecentNumber { get; set; }
+        public int SecondMostRecentNumber { get; set; }
+        public void Generate()
         {
-            Console.WriteLine(I);
+            Random RandomNumber = new();
+            while (true)
+            {
+                int Num = RandomNumber.Next(10);
+                Console.WriteLine(Num);
+                lock (_lock)
+                {
+
+                    SecondMostRecentNumber = MostRecentNumber;
+                    MostRecentNumber = Num;
+                }
+                Thread.Sleep(1000);
+            }
         }
 
-        IEnumerable<int> Result3 = ArrayOrganiser.OrderArray2(IntArray);
-        foreach (int I in Result3)
+        public bool AreNumbersEqual()
         {
-            Console.WriteLine(I);
+            lock (_lock)
+            {
+                return SecondMostRecentNumber == MostRecentNumber;
+            } 
         }
-
-    }  
+    }
 }
