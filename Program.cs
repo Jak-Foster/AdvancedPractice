@@ -1,31 +1,51 @@
 ﻿
-
+using System.Dynamic;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+        int IdIncrementer = 1;
+        while (true)
+        {
+            dynamic Robot = new ExpandoObject();
+            Robot.Id = IdIncrementer;
 
-        int IntOne = 2;
-        int IntTwo = 3;
+            Console.WriteLine($"You are producing robot #{Robot.Id}");
 
-        Console.WriteLine(Program.Add(IntOne, IntTwo));
+            Console.WriteLine("Do you want to name this robot?");
 
-        double DoubleOne = 1.0005;
-        double DoubleTwo = 3.876543;
+            if (Console.ReadLine() == "yes")
+            {
+                Console.WriteLine("What is its name?");
+                Robot.Name = Console.ReadLine();
+            }
 
-        Console.WriteLine(Program.Add(DoubleOne, DoubleTwo));
+            Console.WriteLine("Does this robot have a specific size?");
 
-        string StringOne = "Hello";
-        string StringTwo = " World";
+            if (Console.ReadLine() == "yes")
+            {
+                Console.WriteLine("What is its height?");
+                Robot.Height = Console.ReadLine();
 
-        Console.WriteLine(Program.Add(StringOne, StringTwo));
+                Console.WriteLine("What is its width?");
+                Robot.Width = Console.ReadLine();
+            }
 
-        DateTime DateTimeOne = DateTime.Now;
-        TimeSpan TimeSpanOne = TimeSpan.Zero;
+            Console.WriteLine("Does this robot need to be a specific color?");
 
-        Console.WriteLine(Program.Add(DateTimeOne, TimeSpanOne));
+            if (Console.ReadLine() == "yes")
+            {
+                Console.WriteLine("What colour?");
+                Robot.Colour = Console.ReadLine();
+            }
+
+            foreach (KeyValuePair<string, object> Property in (IDictionary<string, object>)Robot)
+            {
+                Console.WriteLine($"{Property.Key}: {Property.Value}");
+            }
+
+            IdIncrementer++;
+        }
     }
-
-    public static dynamic Add(dynamic Obj1, dynamic Obj2) => Obj1 + Obj2;
 }
