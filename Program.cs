@@ -3,53 +3,29 @@
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static void Main(string[] args)
     {
-        Console.WriteLine("Enter a word for the program to guess");
-        while (true)
-        {
-            string UserInput = Console.ReadLine() ?? "hello";
-            _ = Communicate(UserInput);
-        }
-        
+
+        int IntOne = 2;
+        int IntTwo = 3;
+
+        Console.WriteLine(Program.Add(IntOne, IntTwo));
+
+        double DoubleOne = 1.0005;
+        double DoubleTwo = 3.876543;
+
+        Console.WriteLine(Program.Add(DoubleOne, DoubleTwo));
+
+        string StringOne = "Hello";
+        string StringTwo = " World";
+
+        Console.WriteLine(Program.Add(StringOne, StringTwo));
+
+        DateTime DateTimeOne = DateTime.Now;
+        TimeSpan TimeSpanOne = TimeSpan.Zero;
+
+        Console.WriteLine(Program.Add(DateTimeOne, TimeSpanOne));
     }
 
-    public static int RandomlyRecreate(string Word)
-    {
-        Random Random = new();
-
-        int Counter = 0;
-        string JoinedCharacters = "";
-
-        while (Word != JoinedCharacters)
-        {
-            JoinedCharacters = "";
-            for (int I = Word.Length; I-- > 0;)
-            {
-                JoinedCharacters += ((Char)('a' + Random.Next(26)));  
-            }
-            Counter++;
-        }
-        return Counter;
-    }
-
-    public static Task<int> RandomlyRecreateAsync(string Word)
-    {
-        return Task.Run(() => RandomlyRecreate(Word));
-    }
-
-    public static async Task Communicate(string UserInput)
-    {
-        DateTime BeforeTask = DateTime.Now;
-        Console.WriteLine("Time before task started: " + BeforeTask);
-
-        int NumberOfAttempts = await RandomlyRecreateAsync(UserInput);
-
-        DateTime AfterTask = DateTime.Now;
-        Console.WriteLine("Time when task ended: " + AfterTask);
-        Console.WriteLine("Number of attempts: " + NumberOfAttempts);
-
-        TimeSpan TimeElapsed = AfterTask - BeforeTask;
-        Console.WriteLine("Total time elapsed: " + TimeElapsed);
-    }
+    public static dynamic Add(dynamic Obj1, dynamic Obj2) => Obj1 + Obj2;
 }
